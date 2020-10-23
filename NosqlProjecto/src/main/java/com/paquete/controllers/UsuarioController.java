@@ -1,0 +1,36 @@
+package com.paquete.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.paquete.model.Usuario;
+import com.paquete.repositorios.UsuariosRepository;
+
+@RestController
+public class UsuarioController {
+	
+	@Autowired
+	public UsuariosRepository usuariosrespository;
+	
+	@GetMapping(value = "/all")
+	public List<Usuario> getAllUsuarios() {
+		return usuariosrespository.findAll();
+		
+	}
+	
+	@PostMapping(value = "/create")
+	public String createUsuario(@RequestBody Usuario usuario) {
+		
+		Usuario nuevo = usuariosrespository.insert(usuario);
+		return "Se ha creado un nuevo usuario con el mail "+ nuevo.getEmail();
+		
+	}
+	
+	
+
+}
