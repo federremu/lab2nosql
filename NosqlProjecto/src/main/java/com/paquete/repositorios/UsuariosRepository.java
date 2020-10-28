@@ -7,5 +7,6 @@ import com.paquete.model.Usuario;
 
 @Repository
 public interface UsuariosRepository extends MongoRepository<Usuario, String>{
+	
 
 }
