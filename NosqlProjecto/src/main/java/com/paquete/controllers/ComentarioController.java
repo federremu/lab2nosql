@@ -37,9 +37,10 @@ public class ComentarioController {
 		nuevo.setMeGustas(comentario.getMeGustas());
 		nuevo.setNoMeGustas(comentario.getNoMeGustas());
 		nuevo.setTexto(comentario.getTexto());
+		nuevo.setUsuario(comentario.getUsuario());
 		comentariorepository.save(nuevo);
 		
-		return "Se ha creado un nuevo usuario con el id "+ nuevo.getId();
+		return "Se ha creado un nuevo comentario con el id "+ nuevo.getId();
 		
 	}
 	

@@ -1,7 +1,10 @@
 package com.paquete.model;
 
+import java.util.Collection;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +17,7 @@ import lombok.Data;
 public class Comentario {
 
 	@Transient
-	public static final String SEQUENCE_NAME = "users_sequence";
+	public static final String SEQUENCE_NAME = "comentarios_sequence";
 
 	@Id
 	private long id;
@@ -23,10 +26,13 @@ public class Comentario {
 
 	private int meGustas;
 
-	private int noMeGustas;
-	
-	//private Usuario usuario;
-	
+	private int noMeGustas;	
+
+	@DBRef
+	private Usuario usuario;
+
+	@DBRef
+	private Collection<Emocion> emociones;
 
 	public Comentario() { }
 
@@ -67,10 +73,22 @@ public class Comentario {
 		this.noMeGustas = noMeGustas;
 	}
 
+	public void agregarEmocion(Emocion emocion){
+		this.emociones.add(emocion);
+	}
+
 	@Override
 	public String toString() {
 		return "Comentario [id=" + id + ", texto=" + texto + ", meGustas=" + meGustas + ", noMeGustas=" + noMeGustas
 				+ "]";
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	
