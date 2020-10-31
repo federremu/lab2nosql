@@ -1,6 +1,6 @@
 package com.paquete.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -24,15 +24,15 @@ public class Comentario {
 
 	private String texto;
 
-	private int meGustas;
+	private int meGustas = 0;
 
-	private int noMeGustas;	
+	private int noMeGustas = 0;	
 
 	@DBRef
 	private Usuario usuario;
 
 	@DBRef
-	private Collection<Emocion> emociones;
+	private ArrayList<Emocion> emociones  = new ArrayList<>();
 
 	public Comentario() { }
 
