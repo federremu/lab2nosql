@@ -28,8 +28,7 @@ public class Comentario {
 
 	private int noMeGustas = 0;	
 
-	@DBRef
-	private Usuario usuario;
+	private String usuario;
 
 	@DBRef
 	private ArrayList<Emocion> emociones  = new ArrayList<>();
@@ -83,14 +82,16 @@ public class Comentario {
 				+ "]";
 	}
 
-	public Usuario getUsuario() {
+	public String getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
-	
+	public ArrayList <Emocion> getEmociones(){
+		return this.emociones;
+	}
 
 }

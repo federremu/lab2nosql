@@ -50,7 +50,12 @@ public class ComentarioController {
 		nuevo.setNoMeGustas(comentario.getNoMeGustas());
 		nuevo.setTexto(comentario.getTexto());
 		nuevo.setUsuario(comentario.getUsuario());
-		comentariorepository.save(nuevo);
+		Comentario c=comentariorepository.save(nuevo);
+
+		Optional<Usuario> optionalEntityU= usuariosRepository.findById(comentario.getUsuario());
+		Usuario usuario = optionalEntityU.get();
+		usuario.argegarComentario(c);
+		usuariosRepository.save(usuario);
 
 		return "Se ha creado un nuevo comentario con el id "+ nuevo.getId();
 		
@@ -64,21 +69,23 @@ public class ComentarioController {
 		System.out.println(comentario);
 		System.out.println(emocion);
 		//revisar si user existe y si ya reacciono antes	
-		Optional<Usuario> optionalEntityU= usuariosRepository.findById(user);
-		Usuario usuario = optionalEntityU.get();
-		System.out.println(usuario.getEmail());
+		//Optional<Usuario> optionalEntityU= usuariosRepository.findById(user);
+		//Usuario usuario = optionalEntityU.get();
+		//System.out.println(usuario.getEmail());
 		Emocion nuevaEmocion = new Emocion();
 		nuevaEmocion.setId(SequenceGeneratorService.generateSequence(Emocion.SEQUENCE_NAME));
 		nuevaEmocion.setReaccion(emocion);
-		nuevaEmocion.setUsuario(usuario);
+		nuevaEmocion.setUsuario(user);
 		Emocion e=emocionRepository.save(nuevaEmocion);
+
 
 	
 		Optional<Comentario> optionalEntityC= comentariorepository.findById(comentario);
 		Comentario c = optionalEntityC.get();
 		c.agregarEmocion(e);
-
+		
 		comentariorepository.save(c);
+		System.out.println(c.getEmociones());
 		System.out.println("Guardo");
 
 		return "Se ha reaccionado al comentario con emocion con el id "+ e.getId();

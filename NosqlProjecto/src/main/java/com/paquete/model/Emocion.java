@@ -1,5 +1,7 @@
 package com.paquete.model;
 
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -22,8 +24,7 @@ public class Emocion {
 
 	private boolean reaccion;
 
-	@DBRef
-	private Usuario usuario;
+	private String usuario;
 
     public long getId() {
 		return id;
@@ -40,11 +41,11 @@ public class Emocion {
         this.reaccion = reaccion;
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
@@ -52,12 +53,9 @@ public class Emocion {
         
     }
 
-    public Emocion(boolean reaccion, Usuario usuario) {
+    public Emocion(boolean reaccion, String usuario) {
         this.reaccion = reaccion;
         this.usuario = usuario;
     }
     
-    
-
-
 }
