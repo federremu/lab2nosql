@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-NosqlProjectoApplication<NosqlProjecto>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.paquete.NosqlProjectoApplication",
+            "projectName": "NosqlProjecto",
+            "args": ""
+        }
+    ]
+}

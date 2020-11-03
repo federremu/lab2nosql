@@ -1,5 +1,6 @@
 package com.paquete.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,12 @@ public class ComentarioController {
 		return comentariorepository.findAll();
 		
 	}
+	@GetMapping(value = "/allcomentariosUser")
+	public List<Comentario> getAllComentariosoUser(@RequestParam("user") String user) {
+		return comentariorepository.findByUsuario(user);
+	}
+
+
 	
 	@PostMapping(value = "/addcomentario")
 	public String crearComentario(@RequestBody Comentario comentario) {
@@ -46,8 +53,6 @@ public class ComentarioController {
 		
 		Comentario nuevo = new Comentario();
 		nuevo.setId(SequenceGeneratorService.generateSequence(Comentario.SEQUENCE_NAME));
-		nuevo.setMeGustas(comentario.getMeGustas());
-		nuevo.setNoMeGustas(comentario.getNoMeGustas());
 		nuevo.setTexto(comentario.getTexto());
 		nuevo.setUsuario(comentario.getUsuario());
 		Comentario c=comentariorepository.save(nuevo);
@@ -72,24 +77,38 @@ public class ComentarioController {
 		//Optional<Usuario> optionalEntityU= usuariosRepository.findById(user);
 		//Usuario usuario = optionalEntityU.get();
 		//System.out.println(usuario.getEmail());
-		Emocion nuevaEmocion = new Emocion();
-		nuevaEmocion.setId(SequenceGeneratorService.generateSequence(Emocion.SEQUENCE_NAME));
-		nuevaEmocion.setReaccion(emocion);
-		nuevaEmocion.setUsuario(user);
-		Emocion e=emocionRepository.save(nuevaEmocion);
-
-
-	
 		Optional<Comentario> optionalEntityC= comentariorepository.findById(comentario);
 		Comentario c = optionalEntityC.get();
-		c.agregarEmocion(e);
-		
-		comentariorepository.save(c);
-		System.out.println(c.getEmociones());
-		System.out.println("Guardo");
+		boolean yaReacciono = usuarioYaReacciono(user, c);
+		if (!yaReacciono){
+			Emocion nuevaEmocion = new Emocion();
+			nuevaEmocion.setId(SequenceGeneratorService.generateSequence(Emocion.SEQUENCE_NAME));
+			nuevaEmocion.setReaccion(emocion);
+			nuevaEmocion.setUsuario(user);
 
-		return "Se ha reaccionado al comentario con emocion con el id "+ e.getId();
-		
+			Emocion e=emocionRepository.save(nuevaEmocion);
+			c.agregarEmocion(e);
+
+			comentariorepository.save(c);
+			System.out.println(c.getEmociones());
+			System.out.println("Guardo");
+
+			return "Se ha reaccionado al comentario con emocion con el id "+ e.getId();
+		}else{
+			return "El usaurio ya reacciono al comentario: "+comentario;
+		}
+	}
+
+	boolean usuarioYaReacciono(String user, Comentario comentario){
+		boolean reacciono = false;
+		ArrayList <Emocion> emociones=comentario.getEmociones();
+		for (Emocion emocion : emociones) {
+			if (emocion.getUsuario().equals(user)){
+				reacciono = true;
+				return reacciono;
+			}
+		}
+		return reacciono;
 	}
 	
 

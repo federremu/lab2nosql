@@ -8,6 +8,5 @@ import com.paquete.model.Emocion;
 
 @Repository
 public interface EmocionesRepository extends MongoRepository<Emocion, Long>{
-	
 
 }

@@ -24,10 +24,6 @@ public class Comentario {
 
 	private String texto;
 
-	private int meGustas = 0;
-
-	private int noMeGustas = 0;	
-
 	private String usuario;
 
 	@DBRef
@@ -57,19 +53,21 @@ public class Comentario {
 	}
 
 	public int getMeGustas() {
-		return meGustas;
-	}
-
-	public void setMeGustas(int meGustas) {
-		this.meGustas = meGustas;
+		int contador=0;
+		for (Emocion emocion : this.emociones) {
+			if(emocion.isReaccion())
+				contador++;
+		}
+		return contador;
 	}
 
 	public int getNoMeGustas() {
-		return noMeGustas;
-	}
-
-	public void setNoMeGustas(int noMeGustas) {
-		this.noMeGustas = noMeGustas;
+		int contador=0;
+		for (Emocion emocion : this.emociones) {
+			if(!emocion.isReaccion())
+				contador++;
+		}
+		return contador;
 	}
 
 	public void agregarEmocion(Emocion emocion){
@@ -78,7 +76,7 @@ public class Comentario {
 
 	@Override
 	public String toString() {
-		return "Comentario [id=" + id + ", texto=" + texto + ", meGustas=" + meGustas + ", noMeGustas=" + noMeGustas
+		return "Comentario [id=" + id + ", texto=" + texto + ", meGustas=" + getMeGustas() + ", noMeGustas=" + getNoMeGustas()
 				+ "]";
 	}
 
