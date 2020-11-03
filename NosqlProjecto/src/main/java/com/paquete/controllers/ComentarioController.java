@@ -41,6 +41,12 @@ public class ComentarioController {
 		return comentariorepository.findByUsuario(user);
 	}
 
+	@GetMapping(value = "/leerComentario")
+	public Optional<Comentario> getAllComentariosoUser(@RequestParam("comentario") Long idComentario) {
+		return comentariorepository.findById(idComentario);
+	}
+
+
 
 	
 	@PostMapping(value = "/addcomentario")
