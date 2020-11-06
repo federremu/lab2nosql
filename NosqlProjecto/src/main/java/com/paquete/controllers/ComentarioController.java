@@ -52,41 +52,36 @@ public class ComentarioController {
 	@PostMapping(value = "/addcomentario")
 	public String crearComentario(@RequestBody Comentario comentario) {
 		
-		
-		//user.setEmail("john.doe@example.com");
-		//userRepository.save(user);
-		
-		
-		Comentario nuevo = new Comentario();
-		nuevo.setId(SequenceGeneratorService.generateSequence(Comentario.SEQUENCE_NAME));
-		nuevo.setTexto(comentario.getTexto());
-		nuevo.setUsuario(comentario.getUsuario());
-		Comentario c=comentariorepository.save(nuevo);
+		String msj;
+		if (existeUsuario(comentario.getUsuario())){
+			Comentario nuevo = new Comentario();
+			nuevo.setId(SequenceGeneratorService.generateSequence(Comentario.SEQUENCE_NAME));
+			nuevo.setTexto(comentario.getTexto());
+			nuevo.setUsuario(comentario.getUsuario());
+			Comentario c=comentariorepository.save(nuevo);
 
-		Optional<Usuario> optionalEntityU= usuariosRepository.findById(comentario.getUsuario());
-		Usuario usuario = optionalEntityU.get();
-		usuario.argegarComentario(c);
-		usuariosRepository.save(usuario);
+			Optional<Usuario> optionalEntityU= usuariosRepository.findById(comentario.getUsuario());
+			Usuario usuario = optionalEntityU.get();
+			usuario.argegarComentario(c);
+			usuariosRepository.save(usuario);
+			msj ="Se ha creado un nuevo comentario con el id "+ nuevo.getId();
+		}else {
+			msj="el usuario ingresado no existe";
+		}
 
-		return "Se ha creado un nuevo comentario con el id "+ nuevo.getId();
+
+		return msj;
 		
 	}
 	
 	@PostMapping(value = "/addReaccion")
 	public String agregarReaccion(@RequestParam("user") String user, @RequestParam("comentario") long comentario, @RequestParam("emocion")  Boolean emocion) {
 		
+		String msj;
 
-		System.out.println(user);
-		System.out.println(comentario);
-		System.out.println(emocion);
-		//revisar si user existe y si ya reacciono antes	
-		//Optional<Usuario> optionalEntityU= usuariosRepository.findById(user);
-		//Usuario usuario = optionalEntityU.get();
-		//System.out.println(usuario.getEmail());
 		Optional<Comentario> optionalEntityC= comentariorepository.findById(comentario);
 		Comentario c = optionalEntityC.get();
-		boolean yaReacciono = usuarioYaReacciono(user, c);
-		if (!yaReacciono){
+		if ((existeUsuario(user)) && (!usuarioYaReacciono(user, c))){
 			Emocion nuevaEmocion = new Emocion();
 			nuevaEmocion.setId(SequenceGeneratorService.generateSequence(Emocion.SEQUENCE_NAME));
 			nuevaEmocion.setReaccion(emocion);
@@ -96,15 +91,17 @@ public class ComentarioController {
 			c.agregarEmocion(e);
 
 			comentariorepository.save(c);
-			System.out.println(c.getEmociones());
-			System.out.println("Guardo");
 
-			return "Se ha reaccionado al comentario con emocion con el id "+ e.getId();
+			msj= "Se ha reaccionado al comentario con emocion con el id "+ e.getId();
+		
 		}else{
-			return "El usaurio ya reacciono al comentario: "+comentario;
+			msj= "El usaurio no existe o ya reacciono a este comentario";
 		}
+		return msj;
 	}
-
+	
+	
+	//retorna true si el usuario ya ha reaccionado a ese comentario
 	boolean usuarioYaReacciono(String user, Comentario comentario){
 		boolean reacciono = false;
 		ArrayList <Emocion> emociones=comentario.getEmociones();
@@ -115,6 +112,11 @@ public class ComentarioController {
 			}
 		}
 		return reacciono;
+	}
+	
+	//retorna true si el usuario existe
+	boolean existeUsuario (String mail) {
+		return usuariosRepository.findById(mail).isPresent();
 	}
 	
 

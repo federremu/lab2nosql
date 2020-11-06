@@ -25,9 +25,15 @@ public class UsuarioController {
 	
 	@PostMapping(value = "/create")
 	public String createUsuario(@RequestBody Usuario usuario) {
+		String msj;
+		if (!usuariosrespository.findById(usuario.getEmail()).isPresent()){
+			Usuario nuevo = usuariosrespository.insert(usuario);
+			msj ="Se ha creado un nuevo usuario con el mail "+ nuevo.getEmail();
+		}else {
+			msj = "El usuario ya existe, ingrese un mail diferente ";
+		}
 		
-		Usuario nuevo = usuariosrespository.insert(usuario);
-		return "Se ha creado un nuevo usuario con el mail "+ nuevo.getEmail();
+		return msj;
 		
 	}
 	
