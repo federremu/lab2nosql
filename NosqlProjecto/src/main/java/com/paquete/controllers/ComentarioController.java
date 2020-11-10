@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,7 @@ public class ComentarioController {
 	@Autowired
     public UsuariosRepository usuariosRepository;
 	
+	@Cacheable(value = "comentarios")
 	@GetMapping(value = "/allcomentarios")
 	public List<Comentario> getAllComentarios() {
 		return comentariorepository.findAll();
@@ -48,7 +51,7 @@ public class ComentarioController {
 
 
 
-	
+	@CacheEvict(value = "comentarios", allEntries = true)
 	@PostMapping(value = "/addcomentario")
 	public String crearComentario(@RequestBody Comentario comentario) {
 		

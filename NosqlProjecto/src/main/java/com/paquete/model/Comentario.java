@@ -1,5 +1,6 @@
 package com.paquete.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
@@ -14,8 +15,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Document(collection = "comentarios")
-public class Comentario {
+public class Comentario implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Transient
 	public static final String SEQUENCE_NAME = "comentarios_sequence";
 

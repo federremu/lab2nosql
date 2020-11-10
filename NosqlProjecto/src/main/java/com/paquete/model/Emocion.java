@@ -1,5 +1,7 @@
 package com.paquete.model;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +13,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Document(collection = "emociones")
-public class Emocion {
+public class Emocion implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
 	@Transient
 	public static final String SEQUENCE_NAME = "emociones_sequence";

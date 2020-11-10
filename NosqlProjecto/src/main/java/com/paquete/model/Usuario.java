@@ -1,5 +1,6 @@
 package com.paquete.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
@@ -7,7 +8,9 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="usuarios")
-public class Usuario {
+public class Usuario implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String email;

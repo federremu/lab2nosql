@@ -3,6 +3,8 @@ package com.paquete.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +20,14 @@ public class UsuarioController {
 	@Autowired
 	public UsuariosRepository usuariosrespository;
 	
-	@Cacheable(value = "users")
+	@Cacheable(value = "usuarios")
 	@GetMapping(value = "/all")
 	public List<Usuario> getAllUsuarios() {
 		return usuariosrespository.findAll();
 		
 	}
 	
+	@CachePut(value = "usuarios")
 	@PostMapping(value = "/create")
 	public String createUsuario(@RequestBody Usuario usuario) {
 		String msj;

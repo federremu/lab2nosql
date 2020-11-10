@@ -55,7 +55,13 @@
 		<version>1.18.16</version>
 		<scope>provided</scope>
 	</dependency>
-	</dependencies>
+	
+   <dependency>
+     <groupId>com.opentext.otag.sdk.bus</groupId>
+     <artifactId>otag-sdk-bus</artifactId>
+     <version>16.5.0</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>
