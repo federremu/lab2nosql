@@ -24,16 +24,18 @@ Segundo Laboratorio del curso no sql
     server.port=6040
     mongodb.uri=mongodb://localhost:27017/lab2DB
     
-# Arquitectura general
+# Vista general
 
 ![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/2020-11-12.png) 
-
-  # Diagrama de despliegue
-![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/2020-11-12%20(1).png) 
 
 # Diagrama de clases
 
 ![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/2020-11-12%20(2).png)
+
+  # Diagrama de despliegue
+![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/2020-11-12%20(1).png) 
+
+
 
 
   
