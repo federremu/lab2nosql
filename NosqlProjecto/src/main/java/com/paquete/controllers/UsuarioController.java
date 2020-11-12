@@ -27,7 +27,7 @@ public class UsuarioController {
 		
 	}
 	
-	@CacheEvict(value = "usuarios")
+	@CacheEvict(value = "usuarios", allEntries = true)
 	@PostMapping(value = "/create")
 	public String createUsuario(@RequestBody Usuario usuario) {
 		String msj;
