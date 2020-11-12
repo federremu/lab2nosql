@@ -21,7 +21,7 @@ Segundo Laboratorio del curso no sql
 
 # Arquitectura general
 
-![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/1444132453algorithm-basic.png) 
+![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/2020-11-12.png) 
 
   # Diagrama de despliegue
 ![myimage-alt-tag](https://github.com/federremu/lab2nosql/blob/main/NosqlProjecto/documentacion/2020-11-12%20(1).png) 
