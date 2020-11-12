@@ -1,9 +1,9 @@
 ## Twitter (lab2nosql)
 Segundo Laboratorio del curso no sql  
 
-# Dependencias:
-  - mongodb (4.4.1 utilizado)
-  - redis (5.0.7 utilizado)
+# Based de datos usadas:
+  - mongodb (4.4.1 utilizado) BD
+  - redis (5.0.7 utilizado) Cache
 
 # Lenguaje usado
   -java 1.8
