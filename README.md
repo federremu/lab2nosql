@@ -4,7 +4,6 @@ Segundo Laboratorio del curso no sql
 # Dependencias:
   - mongodb (4.4.1 utilizado)
   - redis (5.0.7 utilizado)
-  - postman (opcional)
 
 # Lenguaje usado
   -java 1.8
