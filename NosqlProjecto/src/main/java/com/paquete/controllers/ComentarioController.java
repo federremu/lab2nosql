@@ -49,8 +49,6 @@ public class ComentarioController {
 		return comentariorepository.findById(idComentario);
 	}
 
-
-
 	@CacheEvict(value = "comentarios", allEntries = true)
 	@PostMapping(value = "/addcomentario")
 	public String crearComentario(@RequestBody Comentario comentario) {
